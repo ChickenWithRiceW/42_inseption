@@ -9,7 +9,11 @@ services:
     restart: always
     env_file:
       - .env
-    entrypoint: ["sleep", "infinity"] # Temp remove
+    #entrypoint: ["sleep", "infinity"] # Temp remove
+    secrets:
+      - db_password
+      - db_root_password
+
 
 volumes:
   mariadb_data:
@@ -22,3 +26,9 @@ volumes:
 networks:
   inseption_net:
     driver: bridge
+
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+  db_root_password:
+    file: ./secrets/db_root_password.txt
