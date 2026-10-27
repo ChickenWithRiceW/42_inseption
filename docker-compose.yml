@@ -1,0 +1,24 @@
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - inseption_net
+    restart: always
+    env_file:
+      - .env
+    entrypoint: ["sleep", "infinity"] # Temp remove
+
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ascheufe/data/mysql
+      o: bind
+
+networks:
+  inseption_net:
+    driver: bridge
