@@ -8,8 +8,7 @@ services:
       - inseption_net
     restart: always
     env_file:
-      - .env
-    #entrypoint: ["sleep", "infinity"] # Temp remove
+      - ./srcs/.env
     secrets:
       - db_password
       - db_root_password

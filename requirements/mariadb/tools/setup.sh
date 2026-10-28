@@ -1,5 +1,6 @@
 #!/bin/sh
 
+set -eu
 
 # Sets passwd to values.
 DB_PASS=$(cat /run/secrets/db_password)

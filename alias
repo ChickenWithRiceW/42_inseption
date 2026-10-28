@@ -1,0 +1,4 @@
+alias build="docker compose build --no-cache"
+ascheufe@vbox:~/inseption$ alias in="docker compose exec mariadb bash"
+ascheufe@vbox:~/inseption$ alias up="docker compose up -d"
+ascheufe@vbox:~/inseption$ alias down="docker compose down"
