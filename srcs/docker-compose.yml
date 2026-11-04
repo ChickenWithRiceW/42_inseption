@@ -18,6 +18,8 @@ services:
     build: ./requirements/wordpress
     volumes:
       - wordpress_data:/var/www/html
+    depends_on:
+      - mariadb
     networks:
       - inseption_net
     restart: always
@@ -27,6 +29,21 @@ services:
       - db_password
       - wp_user_password
       - wp_admin_password
+
+  nginx:
+    build: ./requirements/nginx
+    image: nginx
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html:ro
+    networks:
+      - inseption_net
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - wordpress
 
 volumes:
   mariadb_data:
