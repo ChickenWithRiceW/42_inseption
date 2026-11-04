@@ -11,5 +11,5 @@ else
 	bash setup.sh
 fi
 
-# Replace this shell with the real server (becomes PID 1)
+# Replaces this shell with the real server (becomes pid1)
 exec php-fpm8.2 -F

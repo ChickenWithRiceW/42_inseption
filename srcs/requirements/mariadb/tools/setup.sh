@@ -7,14 +7,12 @@ DB_PASS=$(cat /run/secrets/db_password)
 ROOT_PASS=$(cat /run/secrets/db_root_password)
 
 
-
 # Cleanup dir in cases of half finished attempt before.
 # Why not 'rm -fr *' ?. It would not remove hidden files.
 find /var/lib/mysql -mindepth 1 -delete
 
 # Init DB
 mariadb-install-db --user=mysql --datadir=/var/lib/mysql --skip-test-db
-
 
 # Temporary server, not reachable over the network
 mysqld --user=mysql --skip-networking &
