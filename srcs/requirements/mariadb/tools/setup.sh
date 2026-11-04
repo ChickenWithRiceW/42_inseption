@@ -41,7 +41,7 @@ FLUSH PRIVILEGES;
 EOF
 
 # Root has a password now, so -p is required
-mysqladmin -u root -p"${ROOT_PASS}" shutdown
+MYSQL_PWD="$ROOT_PASS" mysqladmin -u root shutdown
 wait "$pid"
 
 # Last line on purpose: only exists if everything above succeeded
