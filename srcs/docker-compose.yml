@@ -46,6 +46,20 @@ services:
     ports:
       - "443:443"
 
+  redis:
+    container_name: redis
+    build: ./requirements/bonus/redis
+    networks:
+      - inseption_net
+    restart: always
+    env_file:
+      - .env
+    secrets:
+      - db_password
+      - wp_user_password
+      - wp_admin_password
+    # entrypoint: ["sleep", "infinity"]
+
 volumes:
   mariadb_data:
     driver: local

@@ -11,6 +11,8 @@ ROOT_PASS=$(cat /run/secrets/db_root_password)
 # Why not 'rm -fr *' ?. It would not remove hidden files.
 find /var/lib/mysql -mindepth 1 -delete
 
+chown mysql:mysql /var/lib/mysql
+
 # Init DB
 mariadb-install-db --user=mysql --datadir=/var/lib/mysql --skip-test-db
 

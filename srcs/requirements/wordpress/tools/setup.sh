@@ -6,6 +6,8 @@ set -eu
 # Why not 'rm -fr *' ?. It would not remove hidden files.
 find /var/www/html -mindepth 1 -delete
 
+chown www-data:www-data /var/www/html
+
 # Download wordpress files.
 runuser -u www-data -- wp core download --locale=en_GB --path="/var/www/html"
 
@@ -17,6 +19,12 @@ runuser -u www-data -- wp core install --url="$DOMAIN_NAME" --title="$WP_TITEL" 
 
 # Create second user.
 runuser -u www-data -- wp user create "$WP_USER" "$WP_USER_EMAIL" --role=author --path=/var/www/html --prompt=user_pass < /run/secrets/wp_user_password
+
+# Bonus
+runuser -u www-data -- wp plugin install redis-cache --activate --path=/var/www/html
+runuser -u www-data -- wp config set WP_REDIS_HOST "redis" --path=/var/www/html
+runuser -u www-data -- wp config set WP_REDIS_PORT "6379" --path=/var/www/html
+runuser -u www-data -- wp redis enable --path=/var/www/html
 
 # only exists if everything above worked.
 touch /var/www/html/.setup_done
