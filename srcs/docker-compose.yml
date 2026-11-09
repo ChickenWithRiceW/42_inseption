@@ -46,19 +46,27 @@ services:
     ports:
       - "443:443"
 
+  # Bonus
   redis:
     container_name: redis
     build: ./requirements/bonus/redis
     networks:
       - inseption_net
     restart: always
-    env_file:
-      - .env
+  
+  ftp:
+    container_name: ftp
+    build: ./requirements/bonus/ftp
+    networks:
+      - inseption_net
+    restart: always
+    volumes:
+      - wordpress_data:/var/www/html:ro
     secrets:
-      - db_password
-      - wp_user_password
-      - wp_admin_password
-    # entrypoint: ["sleep", "infinity"]
+      - ftp_user_password
+    ports:
+      - "21:21"
+      - "40000-40010:40000-40010"
 
 volumes:
   mariadb_data:
@@ -88,3 +96,5 @@ secrets:
     file: ../secrets/wp_user_password.txt
   wp_admin_password:
     file: ../secrets/wp_admin_password.txt
+  ftp_user_password:
+    file: ../secrets/ftp_user_password.txt
