@@ -80,6 +80,7 @@ services:
     ports:
       - "21:21"
       - "40000-40010:40000-40010"
+    init: true
 
 volumes:
   mariadb_data:
