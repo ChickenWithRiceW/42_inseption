@@ -9,9 +9,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 
-# COPY --chmod=700 ./tools/ /usr/local/bin/
 COPY ./conf/vsftpd.conf /etc/vsftpd.conf
-COPY --chmod=700 ./tools/script.sh /usr/local/bin/script.sh
+COPY ./tools/script.sh /usr/local/bin/script.sh
+RUN chmod 700 /usr/local/bin/script.sh
 
 EXPOSE 21
 EXPOSE 40000-40010

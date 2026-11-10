@@ -1,6 +1,7 @@
 services:
   mariadb:
     container_name: mariadb
+    image: mariadb
     build: ./requirements/mariadb
     volumes:
       - mariadb_data:/var/lib/mysql
@@ -12,9 +13,16 @@ services:
     secrets:
       - db_password
       - db_root_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
 
   wordpress:
     container_name: wordpress
+    image: wordpress
     build: ./requirements/wordpress
     volumes:
       - wordpress_data:/var/www/html
@@ -28,7 +36,10 @@ services:
       - wp_user_password
       - wp_admin_password
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_started
 
   nginx:
     container_name: nginx
@@ -49,6 +60,7 @@ services:
   # Bonus
   redis:
     container_name: redis
+    image: redis
     build: ./requirements/bonus/redis
     networks:
       - inseption_net
@@ -56,12 +68,13 @@ services:
   
   ftp:
     container_name: ftp
+    image: ftp
     build: ./requirements/bonus/ftp
     networks:
       - inseption_net
     restart: always
     volumes:
-      - wordpress_data:/var/www/html:ro
+      - wordpress_data:/var/www/html
     secrets:
       - ftp_user_password
     ports:

@@ -22,8 +22,9 @@ RUN curl -fsSL -o /usr/local/bin/wp \
 RUN mkdir -p /run/php /var/www/html && chown www-data:www-data /var/www/html
 
 COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d/
-COPY --chmod=700 ./tools/ /usr/local/bin/
-
-ENTRYPOINT ["/usr/local/bin/script.sh"]
+COPY ./tools/ /usr/local/bin/
+RUN chmod 700 /usr/local/bin/*.sh
 
 EXPOSE 9000
+
+ENTRYPOINT ["/usr/local/bin/script.sh"]

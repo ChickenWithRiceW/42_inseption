@@ -8,8 +8,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
-COPY --chmod=700 ./tools/ /usr/local/bin/
+COPY ./tools/ /usr/local/bin/
+RUN chmod 700 /usr/local/bin/*.sh
+
+EXPOSE 443
 
 ENTRYPOINT ["/usr/local/bin/script.sh"]
-
-EXPOSE 9000

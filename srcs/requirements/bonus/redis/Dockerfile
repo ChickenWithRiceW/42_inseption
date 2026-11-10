@@ -8,6 +8,6 @@ RUN apt-get update \
         redis \
     && rm -rf /var/lib/apt/lists/*
 
-EXPOSE 3306
+EXPOSE 6379
 
-ENTRYPOINT ["redis-server", "--protected-mode no"]
+ENTRYPOINT ["redis-server", "--protected-mode", "no"]

@@ -11,7 +11,8 @@ RUN apt-get update \
     && chown mysql:mysql /run/mysqld
 
 
-COPY --chmod=700 ./tools/ /usr/local/bin/
+COPY ./tools/ /usr/local/bin/
+RUN chmod 700 /usr/local/bin/*.sh
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 EXPOSE 3306
