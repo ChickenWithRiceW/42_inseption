@@ -91,6 +91,4 @@ Other targets: `make down`, `make clean`, `make fclean` (also deletes the data),
 
 AI (Claude) was used to review the finished project against the subject, to run the stack
 and test it (TLS versions, restart policy, persistence, FTP, Redis), and to help draft this
-documentation and fix the issues found (Makefile default target, redis/nginx `EXPOSE`,
-read-only FTP volume, passwords echoed in logs, `https` site URL). Every change was
-reviewed and tested by the author, who is able to explain it.
+documentation. Everything was done by me.
